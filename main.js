@@ -1,4 +1,4 @@
-var canvas = new fabric.canvas('myCanvas');
+var canvas = new fabric.Canvas('myCanvas');
 
 ball_y=0;
 ball_x=0;
@@ -10,13 +10,13 @@ block_image_width = 5;
 block_image_height = 5;
 
 function load_img(){
-	fabric.Image.fromURL("golf-h1.png", function(Img) {
+	fabric.Image.fromURL("golf-h.png", function(Img) {
 		hole_obj = Img;
 		hole_obj.scaleToWidth(50);
 		hole_obj.scaleToHeight(50);
 		hole_obj.set({
 			top:hole_y,
-			left_hole_x
+			left:hole_x
 		});
 		canvas.add(hole_obj);
 	});
@@ -31,7 +31,7 @@ function new_image()
 		ball_obj.scaleToHeight(50);
 		ball_obj.set({
 			top:ball_y,
-			left_ball_x
+			left:ball_x
 		});
 		canvas.add(ball_obj);
 	});
@@ -49,7 +49,6 @@ function my_keydown(e)
 		document.getElementById("hd3").innerHTML="You Have Hit The Goal!!!";
 		document.getElementById("myCanvas").style.borderColor="red";
 	}
-	else{
 		if(keyPressed == '38')
 		{
 			up();
@@ -70,11 +69,16 @@ function my_keydown(e)
 			right();
 			console.log("right");
 		}
-	}
 	
 	function up()
 	{
-		// Write a code to move ball upward.
+		if(ball_y >=0){
+			ball_y = ball_y - block_image_height;
+			console.log("block image height = " + block_image_height);
+			console.log("When Up Arrow Key Is Pressed, X = "+ball_x + " , Y = "+ball_y);
+			canvas.remove(ball_obj);
+			new_image();
+		}
 	}
 
 	function down()
@@ -92,7 +96,12 @@ function my_keydown(e)
 	{
 		if(ball_x >5)
 		{
-			// Write a code to move ball left side.
+				ball_x = ball_x - block_image_width;
+				console.log("block image width = " + block_image_width);
+				console.log("When Left Arrow Key Is Pressed, X = "+ball_x + " , Y = "+ball_y);
+				canvas.remove(ball_obj);
+				new_image();
+			}
 		}
 	}
 
@@ -100,9 +109,13 @@ function my_keydown(e)
 	{
 		if(ball_x <=1050)
 		{
-			// Write a code to move ball right side.
+			ball_x = ball_x + block_image_width;
+				console.log("block image width = " + block_image_width);
+				console.log("When Right Arrow Key Is Pressed, X = "+ball_x + " , Y = "+ball_y);
+				canvas.remove(ball_obj);
+				new_image();
 		}
 	}
 	
-}
+
 
